@@ -50,11 +50,15 @@ observer.observe(targetNode, observerConfig);
 document.addEventListener('click', function (e) {
   if (e.target && e.target.className.includes('spongemockButton')) {
     var textbox = document.querySelector('#tweet-box-global').firstChild;
-    var tweet = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.js-tweet-text-container').textContent;
+    var tweet = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.js-tweet-text-container').textContent.trim();
+    // truncate tweet to 118 chars
     console.log(tweet);
-    textbox.innerText = 'https://aconanlai.github.io/spongemock/';
+    var shortened = Array.from(tweet.substring(0, 110).toLowerCase().replace(/(\r\n|\n|\r)/gm,' '));
+    for (var i = 0; i < shortened.length; i += 1) {
+      if (i % 2 == 0) {
+        shortened[i] = shortened[i].toUpperCase();
+      }
+    };
+    textbox.innerText = shortened.join('') + ' https://aconanlai.github.io/spongemock'; // 22 chars
   }
 });
-
-
-// js-tweet-text-container.firstChild.innerText
