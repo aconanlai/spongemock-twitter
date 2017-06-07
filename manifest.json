@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "spongemock",
+  "description": "adds spongemock reply button to tweets",
+  "version": "1.0",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png"
+  },
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.twitter.com/*"],
+      "css": ["style.css"],
+      "js": ["script.js"]
+    }
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
