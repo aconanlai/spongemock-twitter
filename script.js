@@ -28,24 +28,31 @@ function addButtons() {
   });
 }
 
-addButtons();
+var disconnecter;
 
-var observer = new MutationObserver(function (mutations) {
-  mutations.forEach(function (mutation) {
-    if (mutation.addedNodes.length > 0) {
-      addButtons();
-    }
+function initializeAndObserve() {
+  addButtons();
+
+  var observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      if (mutation.addedNodes.length > 0) {
+        addButtons();
+      }
+    });
   });
-});
 
-var observerConfig = {
-  attributes: true,
-  childList: true,
-  characterData: true
-};
+  var observerConfig = {
+    attributes: true,
+    childList: true,
+    characterData: true
+  };
 
-var targetNode = document.querySelector('.js-navigable-stream');
-observer.observe(targetNode, observerConfig);
+  var targetNode = document.querySelector('.js-navigable-stream');
+  observer.observe(targetNode, observerConfig);
+  disconnecter = function() {
+    observer.disconnect();
+  }
+}
 
 document.addEventListener('click', function (e) {
   if (e.target && e.target.className.includes('spongemockButton')) {
@@ -53,7 +60,7 @@ document.addEventListener('click', function (e) {
     var tweet = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.js-tweet-text-container').textContent.trim();
     // truncate tweet to 118 chars
     console.log(tweet);
-    var shortened = Array.from(tweet.substring(0, 110).toLowerCase().replace(/(\r\n|\n|\r)/gm,' '));
+    var shortened = Array.from(tweet.substring(0, 110).toLowerCase().replace(/(\r\n|\n|\r)/gm, ' '));
     for (var i = 0; i < shortened.length; i += 1) {
       if (i % 2 == 0) {
         shortened[i] = shortened[i].toUpperCase();
@@ -62,3 +69,15 @@ document.addEventListener('click', function (e) {
     textbox.innerText = shortened.join('') + ' https://aconanlai.github.io/spongemock'; // 22 chars
   }
 });
+
+initializeAndObserve();
+
+var currentHref = window.location.href;
+
+setInterval(function() {
+  if (window.location.href !== currentHref) {
+    currentHref = window.location.href;
+    disconnecter();
+    initializeAndObserve();
+  }
+}, 2000);
