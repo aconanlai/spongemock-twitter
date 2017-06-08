@@ -16,7 +16,7 @@ function addButtons() {
       button.appendChild(innerDiv);
 
       var iconSpan = document.createElement('span');
-      iconSpan.className += 'Icon Icon--retweet spongemockButton';
+      iconSpan.className += 'Icon Icon--spongemock spongemockButton';
       innerDiv.appendChild(iconSpan);
 
       var tooltipSpan = document.createElement('span');
