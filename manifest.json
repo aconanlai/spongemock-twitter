@@ -4,7 +4,7 @@
   "name": "spongemock for twitter",
   "short_name": "spongemock",
   "description": "adds a 'reply as mocking spongebob' button to all tweets on twitter, automating the mOcKiNg TeXt FoRmAt and image insertion",
-  "version": "1.1",
+  "version": "1.2",
   "icons": {
     "16": "sponge16.png",
     "48": "sponge48.png"

@@ -56,17 +56,27 @@ function initializeAndObserve() {
 
 document.addEventListener('click', function (e) {
   if (e.target && e.target.className.includes('spongemockButton')) {
-    var textbox = document.querySelector('#tweet-box-global').firstChild;
     var tweet = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('.js-tweet-text-container').textContent.trim();
     // truncate tweet to 118 chars
-    console.log(tweet);
     var shortened = Array.from(tweet.substring(0, 110).toLowerCase().replace(/(\r\n|\n|\r)/gm, ' '));
     for (var i = 0; i < shortened.length; i += 1) {
       if (i % 2 == 0) {
         shortened[i] = shortened[i].toUpperCase();
       }
     };
-    textbox.innerText = shortened.join('') + ' https://aconanlai.github.io/spongemock'; // 22 chars
+    const spongetext = shortened.join('') + ' https://aconanlai.github.io/spongemock'; // 22 chars
+
+    var textbox = document.querySelector('#tweet-box-global').firstChild;
+    if (textbox) {
+      textbox.innerText = spongetext;
+    }
+
+    var tweetid = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.dataset.tweetId;
+    var replyboxid = '#tweet-box-reply-to-' + tweetid;
+    var replybox = document.querySelector(replyboxid).firstChild;
+    if (replybox) {
+      replybox.innerText = spongetext;
+    }
   }
 });
 
@@ -81,3 +91,6 @@ setInterval(function() {
     initializeAndObserve();
   }
 }, 2000);
+
+
+// tweet-box-reply-to-872957940126302208
