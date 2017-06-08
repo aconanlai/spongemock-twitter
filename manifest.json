@@ -1,8 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "spongemock",
-  "description": "adds spongemock reply button to tweets",
+  "name": "spongemock for twitter",
+  "short_name": "spongemock",
+  "description": "adds a 'reply as mocking spongebob' button to all tweets on twitter, automating the mOcKiNg TeXt FoRmAt and image insertion",
   "version": "1.0",
   "icons": {
     "16": "sponge16.png",
